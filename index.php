@@ -21,15 +21,16 @@
     <div class="wrapper">
         <div class="log">
           <header>Welcome in E-sport Poll</header>
-          <?php if(isset($_SESSION['info']))
-                {
-                    echo $_SESSION['info'];
-                    unset($_SESSION['info']);
-                }
-          ?>
+
           <fieldset>
+              <?php if(isset($_SESSION['info']))
+                    {
+                        echo $_SESSION['info'];
+                        unset($_SESSION['info']);
+                    }
+              ?>
               <form action="soapClient.php" method="post">
-                  <label>Login:</label>
+                  <label class="short">Login:</label>
                   <input type='text' name='login' required/></br>
                   <label>Password: </label>
                   <input type='text' name='pass' required/></br>
@@ -38,7 +39,7 @@
               <a href="view/createAcc.php"><p>You dont have account? Create one very fast!</p></a>
           </fieldset>
 
-        <a href="view/offlinePoll.php"> <p>Create polls in offline mod!</p></a>
+        <a href="view/offlinePoll.php"><div class="offline"> <p>Create polls in offline mod!</p></div></a>
         </div>
         <footer>Techniki internetowe &#169; 2017 </footer>
     </div>

@@ -26,13 +26,14 @@
             <div class='option'>Merge with server data </div>
             <div style="clear:both;"></div>
 					</nav>
-          <?php if(isset($_SESSION['info']))
-                {
-                    echo $_SESSION['info'];
-                    unset($_SESSION['info']);
-                }
-          ?>
+
           <fieldset>
+            <?php if(isset($_SESSION['info']))
+                  {
+                      echo $_SESSION['info'];
+                      unset($_SESSION['info']);
+                  }
+            ?>
               <form action="../soapClient.php" method="get">
                   <label>Men</label>
                   <input type='radio' name='sex' value="men" required/></br>

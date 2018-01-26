@@ -35,6 +35,16 @@ header{
 }
 
 
-nav{
-  
+.offline{
+    border: 1px solid #CCCCCC;
+    border-radius: 25px;
+    background-color: rgba(200, 200,200, 0.6);
+    margin-top: 5%;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+
+.short{
+    padding-right: 9.5%;
 }

@@ -103,6 +103,8 @@
               $login = htmlentities($_POST['login'], ENT_QUOTES, "UTF-8");
               $password = htmlentities($_POST['pass'], ENT_QUOTES, "UTF-8");
               $respond = $client->__soapCall("login",array("user"=>$login, "password"=>$password) );
+              echo $respond;
+
               if($respond == 'ok')
               {
                 $_SESSION['logged'] = true;

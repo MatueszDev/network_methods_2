@@ -28,9 +28,12 @@ class Auth
     public function check_user_existance()
     {
 
-        $sth = self::$db->prepare("SELECT * FROM user WHERE login='".$this->_user."' AND password='".$this->_password."'");
+        //$sth = self::$db->prepare("SELECT * FROM user WHERE login='".$this->_user."' AND password='".$this->_password."'");
+        $sth = self::$db->prepare("SELECT 1 FROM user WHERE login=:login AND password=:password LIMIT 1");
+        $sth->bindValue(':login',$this->_user,PDO::PARAM_STR);
+        $sth->bindValue(':password',$this->_password,PDO::PARAM_STR);
         $sth->execute();
-        $result = $sth->fetchAll();
+        $result = $sth->fetchAll()[0];
         return $result;
     }
 

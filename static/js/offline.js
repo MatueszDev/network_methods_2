@@ -6,18 +6,102 @@ window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || 
 window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
 // (Mozilla has never prefixed these objects, so we don't need window.mozIDB*)
 
+var currentId = 1;
+
 if (!window.indexedDB) {
     window.alert("Your browser doesn't support a stable version of IndexedDB. Offline poll will not be available.");
 }
 
-// Let us open our database
-var request = window.indexedDB.open("OfflinePoll", 3);
 
+const pollData = [
+    { id:1, date: Date.now(), login: 'Zenek', sex:'men', age: 25, cs:1, lol:1, gw:0 },
+];
+
+var db;
+var request = window.indexedDB.open("OfflinePoll", 1);
 
 
 request.onerror = function(event) {
-  // Do something with request.errorCode!
+    console.log("error: "+ event);
 };
 request.onsuccess = function(event) {
-  // Do something with request.result!
+    db = request.result;
+    console.log("success: " + db);
 };
+
+
+request.onupgradeneeded = function(event){
+    var db = event.target.result;
+    var objectStore = db.createObjectStore("poll", {keyGenerator:'id'});
+
+    for(var i in pollData)
+    {
+        objectStore.add(pollData[i]);
+    }
+}
+
+function readAll()
+{
+    var objectStore = db.transaction("poll").objectStore("poll");
+
+    objectStore.openCursor().onsuccess = function(event){
+        var cursor = event.target.result;
+
+        if(cursor)
+        {
+            alert(cursor.key + cursor.value.login);
+        }else{
+            alert("No more entries");
+        }
+    }
+}
+
+function add()
+{
+    var loginDoc = document.getElementsByName('login');
+    var loginVar = loginDoc[0].value;
+
+    var sexDoc = document.getElementsByName('sex');
+    if(sexDoc[0].value == 1)
+        var sexVar = "men";
+    else
+        var sexVar = "women";
+
+    var ageDoc = document.getElementsByName('age');
+    var ageVar = parseInt(ageDoc[0].value, 10);
+
+    var gameVotes = document.getElementsByName('game[]');
+    var csVar = gameVotes[0].checked ? 1:0;
+    var lolVar = gameVotes[1].checked ? 1:0;
+    var gwVar = gameVotes[2].checked ? 1:0;
+
+    console.log(loginVar, sexVar, ageVar, csVar, lolVar, gwVar);
+
+    currentId += 1;
+
+    var request = db.transaction(["poll"], "readwrite")
+    .objectStore("poll")
+    .add({id:currentId, date: Date.now(), login:loginVar, sex:sexVar, age:ageVar, cs:csVar, lol:lolVar, gw:gwVar});
+
+    request.onsuccess = function(event) {
+          console.log("Record added.");
+    };
+
+    request.onerror = function(event) {
+          console.log("Unable to add data");
+    };
+
+
+}
+
+
+function remove()
+{
+    var request = db.transaction(["poll"], "readwrite")
+    .objectStore("poll")
+    .delete();
+
+    request.onsuccess = function(event) {
+        console.log("records have been removed from your database.");
+  };
+}

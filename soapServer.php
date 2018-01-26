@@ -21,7 +21,7 @@ function login($user, $password)
     $db = new Auth($user, $password);
     try{
         $result = $db->check_user_existance();
-        if($result[0]['name'] == $user && $result[0]['password'] == $password )
+        if($result)
             return 'ok';
         else
             return 'User doesnt exists';
@@ -34,10 +34,10 @@ function createUser($user, $password, $name)
 {
     $db = new Auth($user, $password);
     $result = $db->check_user_existance();
-    if($result[0]['name'] == '')
+    if($result)
         return 'login_exist';
     $re = $db->addNewUser($name);
-    return $re;
+    return 'ok';
 }
 
 function test() {
