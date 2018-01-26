@@ -21,7 +21,7 @@ function sendRequest()
     if (xmlHttp) {
         try {
             xmlHttp.onreadystatechange = handleResponse ;
-            xmlHttp.open("GET", "../cgi-bin/python/ajax_text.py", true);
+            xmlHttp.open("GET", "../soapClient.php?fun=1", true);
             xmlHttp.send(null);
         }catch (e){
             alert ("Nie mozna polaczyc sie z serwerem: " + e.toString()) ;
@@ -34,8 +34,19 @@ function sendRequest()
 
 function handleResponse()
 {
-    if (request.readyState == 4)
+    if (xmlHttp.readyState == 4)
     {
-        alert(request.responseText) ;
+        var voteData = JSON.parse(xmlHttp.responseText);
+        var canv = document.getElementById('canv');
+        /*for(var key in voteData )
+        {
+            console.log(key, voteData[key]);
+        }*/
+        var text = "<p>Number of people which voted:" + voteData['all'] + "<br/>";
+        text += 'Men: ' + voteData['men'] + ' women: ' + (voteData['all'] - voteData['men']) + "<br/>";
+        text += 'Number of people which know particulat e-sport games: <br/>';
+        text += 'cs: ' + voteData['cs'] + ' lol: ' + voteData['lol'] + ' gw: ' + voteData['gw'];
+
+        canv.innerHTML = text;
     }
 }

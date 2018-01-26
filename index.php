@@ -14,6 +14,7 @@
 <html>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link href="static/css/main.css" rel="stylesheet" type="text/css"/>
     <title>Main page</title>
 </head>
 <body>
@@ -36,8 +37,8 @@
               </form>
               <a href="view/createAcc.php"><p>You dont have account? Create one very fast!</p></a>
           </fieldset>
-
-          <p>Create polls in offline mod!</p>
+        
+        <a href="view/offlinePoll.php"> <p>Create polls in offline mod!</p></a>
         </div>
         <footer>Techniki internetowe &#169; 2017 </footer>
     </div>

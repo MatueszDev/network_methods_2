@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    $debug  = 1;
+    $debug  = 0;
     $client = new SoapClient(null, array(
         'location' => "http://localhost/proj2/soapServer.php",
         'uri'      => "http://localhost/proj2",
@@ -11,12 +11,12 @@
 
     if($_SERVER['REQUEST_METHOD'] == 'GET')
     {
-        try{
+        /*try{
             $respond = $client->__soapCall("printAll",array("") );
             echo $respond;
         }catch(Exception $exc){
             echo "<p> Error </p>".$exc;
-        }
+        }*/
 
         if(isset($_GET['sex']) && isset($_GET['age']) )
         {
@@ -82,7 +82,16 @@
 
         }
 
+        if(isset($_GET['fun']) && $_GET['fun'] == 1)
+        {
+          try{
+              $respond = $client->__soapCall("numberOfUserRecords", array('login'=> $_SESSION['login']));
+              echo json_encode($respond);
 
+          }catch(Exception $exc){
+              echo "<p> Error </p>".$exc;
+          }
+        }
 
     }
 

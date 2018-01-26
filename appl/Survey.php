@@ -11,7 +11,8 @@ class Survey
     public function __construct($login)
     {
         $this->_login = $login;
-
+        $data = explode(':',self::$dsn) ;
+        if ( ! file_exists ( $data[1] ) ) { throw new Exception ( "Database file doesn't exist." ) ;  }
         self::$db = new PDO(self::$dsn);
         self::$db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION) ;
     }
@@ -50,16 +51,55 @@ class Survey
     public function countNumberOfRecords()
     {
         try{
-            $query = self::$db->prepare("SELECT count(*) from poll WHERE login = ':login'");
+            $query = self::$db->prepare("SELECT count(*) from poll WHERE login=:login");
             $query->bindValue(':login', $this->_login, PDO::PARAM_STR);
-            $result = $sth->execute();
-            return $result;
+            $result = $query->execute();
+            return $query->fetchAll()[0];
         }catch(Exception $exc){
           return "<p> Error </p>".$exc;
         }
 
     }
 
+    public function countNumberOfMen()
+    {
+        try{
+            $query = self::$db->prepare("SELECT count(*) from poll WHERE login=:login AND sex=:sex");
+            $query->bindValue(':login', $this->_login, PDO::PARAM_STR);
+            $query->bindValue(':sex', 'men', PDO::PARAM_STR);
+            $result = $query->execute();
+            return $query->fetchAll()[0];
+        }catch(Exception $exc){
+          return "<p> Error </p>".$exc;
+        }
+
+    }
+
+    public function countGameVotes($game)
+    {
+        try{
+            $query = self::$db->prepare("SELECT count(*) from poll WHERE login=:login AND ".$game."='1'");
+            $query->bindValue(':login', $this->_login, PDO::PARAM_STR);
+            $result = $query->execute();
+            return $query->fetchAll()[0];
+        }catch(Exception $exc){
+          return "<p> Error </p>".$exc;
+        }
+
+    }
+
+    public function countZeroVotes($game)
+    {
+        try{
+            $query = self::$db->prepare("SELECT count(*) from poll WHERE login=:login AND cs='0' AND lol='0' AND gw='0'");
+            $query->bindValue(':login', $this->_login, PDO::PARAM_STR);
+            $result = $query->execute();
+            return $query->fetchAll()[0];
+        }catch(Exception $exc){
+          return "<p> Error </p>".$exc;
+        }
+
+    }
 
 }
 

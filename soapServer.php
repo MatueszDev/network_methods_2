@@ -56,7 +56,19 @@ function numberOfUserRecords($login)
 {
     $db = new Survey($login);
     $numOfAllRec = $db->countNumberOfRecords();
-    return $numOfAllRec;
+    $numOfMen = $db->countNumberOfMen();
+    $gameCS = $db->countGameVotes('cs');
+    $gameLOL = $db->countGameVotes('lol');
+    $gameGW = $db->countGameVotes('gw');
+    $zeroVotes = $db->countZeroVotes();
+    $numOfAllRec = (int)$numOfAllRec['count(*)'];
+    $numOfMen = (int)$numOfMen['count(*)'];
+    $gameCS = (int)$gameCS['count(*)'];
+    $gameGW = (int)$gameGW['count(*)'];
+    $gameLOL = (int)$gameLOL['count(*)'];
+    $zeroVotes = (int)$zeroVotes['count(*)'];
+    $Data = array('all' => $numOfAllRec, 'men' => $numOfMen, 'cs' => $gameCS, 'gw' => $gameGW, 'lol' => $gameLOL, 'zeroVt' => $zeroVotes);
+    return $Data;
 }
 
 
@@ -69,6 +81,7 @@ function numberOfUserRecords($login)
      "login",
      "createUser",
      "addNewRecord",
+     "numberOfUserRecords",
    ));
    $server->handle();
 

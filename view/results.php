@@ -24,14 +24,15 @@
 						<div>Merge with server data </div>
 					  <a href="results.php"><div>Show records</div></a>
 					</nav>
-          <div class="result" id="canv">
-
+          <div class="result" id="canv" onclick="sendRequest()">
+          1
 
           </div>
           <a href="../appl/logout.php"><p>Log out!</p></a>
         </div>
         <footer>Techniki internetowe &#169; 2017 </footer>
     </div>
-    <script src="../static/js/visualData.js"></script>
+    <!--<script src="../static/js/jquery-3.3.1.min.js" type="text/javascript"></script>-->
+    <script src="../static/js/visualData.js" type="text/javascript"></script>
 </body>
 </html>
