@@ -13,6 +13,7 @@
 <html>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link href="../static/css/poll.css" rel="stylesheet" type="text/css"/>
     <title>Poll</title>
 </head>
 <body>
@@ -20,9 +21,10 @@
         <div class="poll">
           <header>Simple e-sport poll</header>
 					<nav>
-						<div>Poll</div>
-						<div>Merge with server data </div>
-					  <a href="results.php"><div>Show records</div></a>
+						<div class='option'>Poll</div>
+					  <a href="results.php"><div class='option'>Show records</div></a>
+            <div class='option'>Merge with server data </div>
+            <div style="clear:both;"></div>
 					</nav>
           <?php if(isset($_SESSION['info']))
                 {

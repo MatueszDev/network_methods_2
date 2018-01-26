@@ -18,9 +18,23 @@ body{
 
 fieldset{
     background-color: rgba(200, 200,200, 0.6);
+    border-radius: 25px;
+    padding-top: 5%;
+    padding-right:25%;
+    padding-left: 25%;
+    text-align: left;
+}
+
+input{
+    margin:1%;
 }
 
 header{
     font-size: 250%;
     color: white;
+}
+
+
+nav{
+  
 }

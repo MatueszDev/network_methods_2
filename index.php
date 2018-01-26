@@ -29,7 +29,7 @@
           ?>
           <fieldset>
               <form action="soapClient.php" method="post">
-                  <label>Login: </label>
+                  <label>Login:</label>
                   <input type='text' name='login' required/></br>
                   <label>Password: </label>
                   <input type='text' name='pass' required/></br>
@@ -37,7 +37,7 @@
               </form>
               <a href="view/createAcc.php"><p>You dont have account? Create one very fast!</p></a>
           </fieldset>
-        
+
         <a href="view/offlinePoll.php"> <p>Create polls in offline mod!</p></a>
         </div>
         <footer>Techniki internetowe &#169; 2017 </footer>

@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link href="../static/css/poll.css" rel="stylesheet" type="text/css"/>
     <title>Offline poll</title>
 </head>
 <body>
