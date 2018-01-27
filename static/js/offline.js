@@ -6,7 +6,7 @@ window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || 
 window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
 // (Mozilla has never prefixed these objects, so we don't need window.mozIDB*)
 
-var currentId = 1;
+
 
 if (!window.indexedDB) {
     window.alert("Your browser doesn't support a stable version of IndexedDB. Offline poll will not be available.");
@@ -14,11 +14,11 @@ if (!window.indexedDB) {
 
 
 const pollData = [
-    { id:1, date: Date.now(), login: 'Zenek', sex:'men', age: 25, cs:1, lol:1, gw:0 },
+    {  date: Date.now(), login: 'Zenek', sex:'men', age: 25, cs:1, lol:1, gw:0 },
 ];
 
 var db;
-var request = window.indexedDB.open("OfflinePoll", 1);
+var request = window.indexedDB.open("OfflinePoll", 2);
 
 
 request.onerror = function(event) {
@@ -32,7 +32,9 @@ request.onsuccess = function(event) {
 
 request.onupgradeneeded = function(event){
     var db = event.target.result;
-    var objectStore = db.createObjectStore("poll", {keyGenerator:'id'});
+    var objectStore = db.createObjectStore("poll", {autoIncrement:true});
+
+     //objectStore.createIndex("login", "login", { unique: false });
 
     for(var i in pollData)
     {
@@ -77,11 +79,11 @@ function add()
 
     console.log(loginVar, sexVar, ageVar, csVar, lolVar, gwVar);
 
-    currentId += 1;
+
 
     var request = db.transaction(["poll"], "readwrite")
     .objectStore("poll")
-    .add({id:currentId, date: Date.now(), login:loginVar, sex:sexVar, age:ageVar, cs:csVar, lol:lolVar, gw:gwVar});
+    .add({ date: Date.now(), login:loginVar, sex:sexVar, age:ageVar, cs:csVar, lol:lolVar, gw:gwVar});
 
     request.onsuccess = function(event) {
           console.log("Record added.");
@@ -95,13 +97,47 @@ function add()
 }
 
 
-function remove()
+function remove(record)
 {
     var request = db.transaction(["poll"], "readwrite")
     .objectStore("poll")
-    .delete();
+    .delete(record);
 
     request.onsuccess = function(event) {
         console.log("records have been removed from your database.");
   };
+}
+
+var json;
+
+function get(key)
+{
+
+    var transaction = db.transaction(["poll"]);
+    var objectStore = transaction.objectStore("poll");
+    var request = objectStore.get(key);
+
+    request.onerror = function(event) {
+        console.log("Unable to retrieve daa from database!");
+    };
+
+
+
+    request.onsuccess = function(event) {
+       if(request.result)
+       {
+          var data = {'login':request.result.login, 'age':request.result.age, 'date':request.result.date, 'cs':request.result.cs, 'lol':request.result.lol, 'gw':request.result.gw, 'sex':request.result.sex };
+          json = JSON.stringify(data);
+          console.log(json);
+          //console.log("Name: " + request.result.login + ", Age: " + request.result.age + ", Email: " + request.result.gw);
+
+
+
+          return 1;
+      }else {
+          return "OutOfIndex";
+       }
+    };
+
+
 }

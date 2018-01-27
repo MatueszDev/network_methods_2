@@ -82,6 +82,7 @@
 
         }
 
+
         if(isset($_GET['fun']) && $_GET['fun'] == 1)
         {
           try{
@@ -147,6 +148,21 @@
             echo "<p> Error </p>".$exc;
         }
       }
+
+      if(isset($_POST['json']))
+      {
+
+          $json = json_decode($_POST["json"], true);
+          foreach ($json as $var)
+          {
+              $data = array("login"=> $var['login'], 'sex'=> $var['sex'], 'age'=> $var['age'], 'cs'=> $var['cs'], 'lol'=> $var['lol'], 'gw'=> $var['gw']);
+              $respond = $client->__soapCall("addNewRecord", $data );
+
+          }
+
+      }
+
+
     }
 
 

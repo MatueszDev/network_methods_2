@@ -28,10 +28,12 @@
           </fieldset>
 
           <button onclick="remove()">remove</button>
-          <a href="../index.php"><p>Return to main page!</p></a>
+          <button onclick="get(1)">remove</button>
+          <a href="../index.php"><p class="logout">Return to main page!</p></a>
         </div>
         <button onclick="readAll()">redd</button>
         <footer>Techniki internetowe &#169; 2017 </footer>
+        <script src="../static/js/jquery-3.3.1.min.js"></script>
         <script src="../static/js/offline.js" type="text/javascript"></script>
     </div>
 </body>

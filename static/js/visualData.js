@@ -42,10 +42,12 @@ function handleResponse()
         {
             console.log(key, voteData[key]);
         }*/
-        var text = "<p>Number of people which voted:" + voteData['all'] + "<br/>";
+        var text = "<p style='text-align:center;'>Number of people which voted:" + voteData['all'] + "<br/>";
         text += 'Men: ' + voteData['men'] + ' women: ' + (voteData['all'] - voteData['men']) + "<br/>";
         text += 'Number of people which know particulat e-sport games: <br/>';
-        text += 'cs: ' + voteData['cs'] + ' lol: ' + voteData['lol'] + ' gw: ' + voteData['gw'];
+        text += 'cs: ' + voteData['cs'] + ' lol: ' + voteData['lol'] + ' gw: ' + voteData['gw'] + "<br/>";
+        text += 'People who dont know any of this game:<br/>';
+        text +=  voteData['zeroVt'];
 
         canv.innerHTML = text;
     }

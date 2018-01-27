@@ -21,9 +21,9 @@
         <div class="poll">
           <header>Simple e-sport poll</header>
 					<nav>
-						<div class='option'>Poll</div>
-					  <a href="results.php"><div class='option'>Show records</div></a>
-            <div class='option'>Merge with server data </div>
+						<a href="#"><div class='option'>Poll</div></a>
+					  <a href="results.php"><div class='option mid'>Show records</div></a>
+            <a href="#"><div class='option' onclick="merge()">Merge with server data </div></a>
             <div style="clear:both;"></div>
 					</nav>
 
@@ -55,9 +55,11 @@
                   }
               ?>
           </fieldset>
-          <a href="../appl/logout.php"><p>Log out!</p></a>
+          <a href="../appl/logout.php"><p class="logout">Log out!</p></a>
         </div>
         <footer>Techniki internetowe &#169; 2017 </footer>
     </div>
+    <script src="../static/js/offline.js" type="text/javascript"></script>
+    <script src="../static/js/merge.js" type="text/javascript"></script>
 </body>
 </html>
